@@ -55,3 +55,4 @@ dist
 *.egg-info
 bin/*.exe
 wheelhouse
+__pycache__

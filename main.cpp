@@ -2816,7 +2816,7 @@ void parse_json_source(const char *arg, struct source &src) {
 
 
 namespace cmd_tippecanoe {
-int tippecanoe_main(int argc, char **argv) {
+int main(int argc, char **argv) {
 #ifdef MTRACE
 	mtrace();
 #endif

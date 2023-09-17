@@ -552,7 +552,7 @@ void usage(char **argv) {
 	exit(EXIT_ARGS);
 }
 
-int decode_main(int argc, char **argv) {
+int main(int argc, char **argv) {
 	extern int optind;
 	extern char *optarg;
 	int i;

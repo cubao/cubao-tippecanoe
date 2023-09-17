@@ -13,9 +13,9 @@ if __name__ == '__main__':
     exes = {e.rsplit('/', 1)[-1][len(prefix):].split('.')[0]: e for e in exes}
     if len(sys.argv) > 1 and sys.argv[1] in exes:
         exe = exes[sys.argv[1]]
-        print(f'exe: {exe}')
+        # print(f'exe: {exe}')
         args = sys.argv[2:]
-        print(f'args: {args}')
+        # print(f'args: {args}')
         exit(subprocess.call([exe, *args]))
     else:
         print('commands are:\n\t', '\n\t'.join(exes.keys()), '\n', sep='')

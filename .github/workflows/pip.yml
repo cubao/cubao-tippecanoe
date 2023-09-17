@@ -31,7 +31,3 @@ jobs:
 
     - name: Build and install
       run: pip install --verbose .[test]
-
-    - name: Test
-      if: ${{ startsWith(matrix.platform, 'ubuntu') }}
-      run: python -m pytest

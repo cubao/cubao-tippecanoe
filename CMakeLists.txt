@@ -76,6 +76,21 @@ install(
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
 
+set(SRCS decode.cpp enumerate.cpp jsontool.cpp main.cpp overzoom.cpp
+         tile-join.cpp)
+foreach(src ${SRCS})
+  string(REGEX REPLACE "(^.*/|.cpp$)" "" exe ${src})
+  if(${src} STREQUAL "main.cpp")
+    set(exe tippecanoe)
+    add_executable(${exe} ${src})
+    set_target_properties(${exe} PROPERTIES OUTPUT_NAME tippecanoe)
+  else()
+    add_executable(${exe} ${src})
+  endif()
+  target_link_libraries(${exe} ${PROJECT_NAME} ${CONAN_LIBS})
+  install(TARGETS ${exe} RUNTIME DESTINATION python/${PYBIND11_PROJECT_NAME})
+endforeach(src)
+
 add_subdirectory(pybind11)
 pybind11_add_module(_pybind11_tippecanoe pybind11.cpp)
 

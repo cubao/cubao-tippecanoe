@@ -19,12 +19,20 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 set(CMAKE_CXX_STANDARD 17)
 set(PYBIND11_CPP_STANDARD -std=c++17)
 include_directories(BEFORE ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 include_directories(${PYBIND11_INCLUDE_DIR})
+
+include(FetchContent)
+set(ZLIB_COMPAT ON)
+set(ZLIB_ENABLE_TESTS OFF)
+set(WITH_GZFILEOP ON)
+# set(WITH_NEW_STRATEGIES OFF)
+set(WITH_GTEST OFF)
+add_subdirectory(zlib-ng)
 
 set(MAIN_SRCS #
     decode.cpp #
@@ -68,7 +76,7 @@ set(SOURCES
 # ${MAIN_SRCS})
 
 add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
-target_link_libraries(${PROJECT_NAME})
+target_link_libraries(${PROJECT_NAME} ${zlibstatic} m z dl pthread)
 install(
   TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION lib

@@ -42,8 +42,6 @@
 #include "errors.hpp"
 #include "geometry.hpp"
 
-namespace cmd_tile_join {
-
 int pk = false;
 int pC = false;
 int pg = false;
@@ -1210,7 +1208,7 @@ void usage(char **argv) {
 	exit(EXIT_ARGS);
 }
 
-int tile_join_main(int argc, char **argv) {
+int main(int argc, char **argv) {
 	char *out_mbtiles = NULL;
 	char *out_dir = NULL;
 	sqlite3 *outdb = NULL;
@@ -1582,6 +1580,4 @@ int tile_join_main(int argc, char **argv) {
 	}
 
 	return 0;
-}
-
 }

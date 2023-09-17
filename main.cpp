@@ -66,9 +66,6 @@
 #include "errors.hpp"
 #include "read_json.hpp"
 
-extern int optind;
-extern char *optarg;
-
 static int low_detail = 12;
 static int full_detail = -1;
 static int min_detail = 7;
@@ -2817,8 +2814,6 @@ void parse_json_source(const char *arg, struct source &src) {
 	json_end(jp);
 }
 
-
-namespace cmd_tippecanoe {
 int main(int argc, char **argv) {
 #ifdef MTRACE
 	mtrace();
@@ -2827,6 +2822,8 @@ int main(int argc, char **argv) {
 	av = argv;
 	init_cpus();
 
+	extern int optind;
+	extern char *optarg;
 	int i;
 
 	char *name = NULL;
@@ -3695,7 +3692,6 @@ int main(int argc, char **argv) {
 	}
 
 	return ret;
-}
 }
 
 int mkstemp_cloexec(char *name) {

@@ -35,14 +35,15 @@ set(WITH_GZFILEOP ON)
 set(WITH_GTEST OFF)
 add_subdirectory(zlib-ng)
 
+set(MAIN_SRCS decode.cpp enumerate.cpp jsontool.cpp main.cpp overzoom.cpp
+              tile-join.cpp)
+
 file(GLOB HEADERS *.hpp *.h jsonpull/*.h)
 set(SOURCES
     clip.cpp
     compression.cpp
     csv.cpp
-    decode.cpp
     dirtiles.cpp
-    enumerate.cpp
     evaluator.cpp
     flatgeobuf.cpp
     geobuf.cpp
@@ -52,12 +53,9 @@ set(SOURCES
     geometry.cpp
     json_logger.cpp
     jsonpull/jsonpull.c
-    jsontool.cpp
-    main.cpp
     mbtiles.cpp
     memfile.cpp
     mvt.cpp
-    overzoom.cpp
     plugin.cpp
     pmtiles_file.cpp
     pool.cpp
@@ -66,7 +64,6 @@ set(SOURCES
     serial.cpp
     sqlite3.c
     text.cpp
-    tile-join.cpp
     tile.cpp
     unit.cpp
     visvalingam.cpp
@@ -85,4 +82,3 @@ pybind11_add_module(_pybind11_tippecanoe pybind11.cpp)
 target_compile_definitions(_pybind11_tippecanoe
                            PRIVATE VERSION_INFO=${TIPPECANOE_VERSION_INFO})
 target_link_libraries(_pybind11_tippecanoe PRIVATE ${PROJECT_NAME})
-

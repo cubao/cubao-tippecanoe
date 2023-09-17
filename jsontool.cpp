@@ -14,8 +14,6 @@
 #include "milo/dtoa_milo.h"
 #include "errors.hpp"
 
-namespace jsontool {
-
 int fail = EXIT_SUCCESS;
 bool wrap = false;
 const char *extract = NULL;
@@ -409,7 +407,7 @@ void process(FILE *fp, const char *fname) {
 	json_end(jp);
 }
 
-int jsontool_main(int argc, char **argv) {
+int main(int argc, char **argv) {
 	const char *csv = NULL;
 
 	struct option long_options[] = {
@@ -510,5 +508,4 @@ int jsontool_main(int argc, char **argv) {
 	}
 
 	return fail;
-}
 }

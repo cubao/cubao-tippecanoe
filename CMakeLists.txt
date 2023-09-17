@@ -22,6 +22,64 @@ endif()
 
 set(CMAKE_CXX_STANDARD 17)
 set(PYBIND11_CPP_STANDARD -std=c++17)
+include_directories(BEFORE ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
+include_directories(${PYBIND11_INCLUDE_DIR})
+
+set(MAIN_SRCS decode.cpp enumerate.cpp jsontool.cpp main.cpp overzoom.cpp
+              tile-join.cpp)
+
+file(GLOB HEADERS *.hpp *.h jsonpull/*.h)
+set(SOURCES
+    clip.cpp
+    compression.cpp
+    csv.cpp
+    dirtiles.cpp
+    evaluator.cpp
+    flatgeobuf.cpp
+    geobuf.cpp
+    geocsv.cpp
+    geojson-loop.cpp
+    geojson.cpp
+    geometry.cpp
+    json_logger.cpp
+    jsonpull/jsonpull.c
+    mbtiles.cpp
+    memfile.cpp
+    mvt.cpp
+    plugin.cpp
+    pmtiles_file.cpp
+    pool.cpp
+    projection.cpp
+    pybind11.cpp
+    read_json.cpp
+    serial.cpp
+    text.cpp
+    tile.cpp
+    unit.cpp
+    visvalingam.cpp
+    write_json.cpp)
+# file(GLOB SOURCES *.cpp *.c jsonpull/*.c) list(REMOVE_ITEM SOURCES
+# ${MAIN_SRCS})
+
+add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+target_link_libraries(${PROJECT_NAME})
+install(
+  TARGETS ${PROJECT_NAME}
+  LIBRARY DESTINATION lib
+  ARCHIVE DESTINATION lib)
+
+foreach(src ${MAIN_SRCS})
+  string(REGEX REPLACE "(^.*/|.cpp$)" "" exe ${src})
+  if(${src} STREQUAL "main.cpp")
+    set(exe tippecanoe_exe)
+    add_executable(${exe} ${src})
+    set_target_properties(${exe} PROPERTIES OUTPUT_NAME tippecanoe)
+  else()
+    add_executable(${exe} ${src})
+  endif()
+  target_link_libraries(${exe} ${PROJECT_NAME})
+  install(TARGETS ${exe} RUNTIME DESTINATION python/${PYBIND11_PROJECT_NAME})
+endforeach(src)
 
 add_subdirectory(pybind11)
 pybind11_add_module(_pybind11_tippecanoe pybind11.cpp)

@@ -1,5 +1,6 @@
 PROJECT_SOURCE_DIR ?= $(abspath ./)
 PROJECT_NAME ?= $(shell basename $(PROJECT_SOURCE_DIR))
+NUM_JOB ?= 8
 
 all:
 	@echo nothing special
@@ -17,7 +18,7 @@ lint_install:
 
 build:
 	mkdir -p build && cd build && \
-	cmake .. && make
+	cmake .. && make -j $(NUM_JOB)
 .PHONY: build
 
 docs_build:

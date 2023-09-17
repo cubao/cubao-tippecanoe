@@ -11,12 +11,12 @@ if __name__ == '__main__':
     prefix = '__cubao_tippecanoe_'
     exes = sorted(glob.glob(f'{libdir}/{prefix}*.exe'))
     exes = {e.rsplit('/', 1)[-1][len(prefix):].split('.')[0]: e for e in exes}
-    if len(sys.argv) > 1 and sys.argv[1] not in exes:
+    if len(sys.argv) > 1 and sys.argv[1] in exes:
         exe = exes[sys.argv[1]]
         print(f'exe: {exe}')
         args = sys.argv[2:]
         print(f'args: {args}')
-        subprocess.check_call([exe, *args])
+        exit(subprocess.call([exe, *args]))
     else:
-        print('commands are:', '\n\t'.join(exes.keys()))
+        print('commands are:\n\t', '\n\t'.join(exes.keys()), '\n', sep='')
         exit(-1)

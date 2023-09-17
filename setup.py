@@ -123,10 +123,10 @@ class CMakeBuild(build_ext):
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
     name="cubao_tippecanoe",
-    version="0.0.1",
+    version="0.0.2",
     author="tzx",
     author_email="dvorak4tzx@gmail.com",
-    url="https://cubao-tippecanoe.readthedocs.io",
+    url="https://github.com/cubao/cubao-tippecanoe",
     description="standalone tippecanoe",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",

@@ -90,7 +90,7 @@ repair_wheels:
 pypi_remote ?= pypi
 upload_wheels:
 	python -m pip install twine
-	twine upload dist/*.whl -r $(pypi_remote)
+	twine upload wheelhouse/*.whl -r $(pypi_remote)
 
 tar.gz:
 	tar -cvz --exclude .git -f ../$(PROJECT_NAME).tar.gz .

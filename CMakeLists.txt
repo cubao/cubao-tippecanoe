@@ -19,12 +19,13 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 set(CMAKE_CXX_STANDARD 17)
 set(PYBIND11_CPP_STANDARD -std=c++17)
 include_directories(BEFORE ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 include_directories(${PYBIND11_INCLUDE_DIR})
+
+set(BUILD_SHARED_LIBS OFF)
 
 include(FetchContent)
 set(ZLIB_COMPAT ON)
@@ -76,7 +77,7 @@ set(SOURCES
 # ${MAIN_SRCS})
 
 add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
-target_link_libraries(${PROJECT_NAME} ${zlibstatic} m z dl pthread)
+target_link_libraries(${PROJECT_NAME} zlib m dl pthread)
 install(
   TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION lib

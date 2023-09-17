@@ -121,18 +121,16 @@ class CMakeBuild(build_ext):
 # The information here can also be placed in setup.cfg - better separation of
 # logic and declaration, and simpler if you include description/version in a file.
 setup(
-    name="fast_crossing",
-    version="0.0.8",
+    name="cubao_tippecanoe",
+    version="0.0.1",
     author="tzx",
     author_email="dvorak4tzx@gmail.com",
-    url="https://fast-crossing.readthedocs.io",
-    description="fast crossing",
+    url="https://tippecanoe.readthedocs.io",
+    description="standalone tippecanoe",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     packages=find_packages(),
-    ext_modules=[CMakeExtension("fast_crossing")],
+    ext_modules=[CMakeExtension("tippecanoe")],
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
-    install_requires=["numpy"],
-    extras_require={"test": ["pytest>=6.0", "scipy"]},
 )

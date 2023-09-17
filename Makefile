@@ -53,7 +53,6 @@ python_build:
 	$(PYTHON) setup.py bdist_wheel
 python_sdist:
 	$(PYTHON) setup.py sdist
-	# tar -tvf dist/fast_crossing-*.tar.gz
 python_test: pytest
 pytest:
 	pytest tests --capture=tee-sys

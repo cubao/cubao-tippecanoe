@@ -4,9 +4,3 @@ graft pybind11/tools
 graft zlib-ng
 global-include *.hpp *.cpp *.c *.h
 global-include CMakeLists.txt *.cmake
-include bin/decode.exe
-include bin/enumerate.exe'
-include bin/jsontool.exe'
-include bin/overzoom.exe'
-include bin/tile-join.exe'
-include bin/tippecanoe.exe'

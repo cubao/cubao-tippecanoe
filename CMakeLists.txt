@@ -77,6 +77,8 @@ install(
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
+
 set(SRCS decode.cpp enumerate.cpp jsontool.cpp main.cpp overzoom.cpp
          tile-join.cpp)
 foreach(src ${SRCS})
@@ -88,8 +90,9 @@ foreach(src ${SRCS})
   else()
     add_executable(${exe} ${src})
   endif()
-  target_link_libraries(${exe} ${PROJECT_NAME} ${CONAN_LIBS})
-  install(TARGETS ${exe} RUNTIME DESTINATION python/${PYBIND11_PROJECT_NAME})
+  target_link_libraries(${exe} ${PROJECT_NAME})
+  set_target_properties(${exe} PROPERTIES PREFIX "__cubao_bin_")
+  set_target_properties(${exe} PROPERTIES SUFFIX ".exe")
 endforeach(src)
 
 add_subdirectory(pybind11)

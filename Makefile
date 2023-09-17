@@ -26,7 +26,7 @@ docs_serve:
 	mkdocs serve -a 0.0.0.0:8088
 
 DOCKER_TAG_WINDOWS ?= ghcr.io/cubao/build-env-windows-x64:v0.0.1
-DOCKER_TAG_LINUX ?= ghcr.io/cubao/build-env-manylinux2014-x64:v0.0.3
+DOCKER_TAG_LINUX ?= ghcr.io/cubao/build-env-manylinux2014-x64:v0.0.4
 DOCKER_TAG_MACOS ?= ghcr.io/cubao/build-env-macos-arm64:v0.0.1
 
 test_in_win:
@@ -93,39 +93,8 @@ upload_wheels:
 	twine upload dist/*.whl -r $(pypi_remote)
 
 tar.gz:
-	tar -cvz --exclude .git -f ../fast_crossing.tar.gz .
-	ls -alh ../fast_crossing.tar.gz
-
-NUM_POINTS = 100000
-benchmark_point_in_polygon:
-	python3 benchmarks/benchmark_point_in_polygon.py generate_test_data --num=$(NUM_POINTS) -o dist/point_in_polygon
-	python3 benchmarks/benchmark_point_in_polygon.py shapely \
-		dist/point_in_polygon/random_num_$(NUM_POINTS)__bbox_800.00x600.00__radius_250.00__points.npy \
-		dist/point_in_polygon/random_num_$(NUM_POINTS)__bbox_800.00x600.00__radius_250.00__polygon.npy \
-		dist/mask_shapely.npy
-	python3 benchmarks/benchmark_point_in_polygon.py matplotlib \
-		dist/point_in_polygon/random_num_$(NUM_POINTS)__bbox_800.00x600.00__radius_250.00__points.npy \
-		dist/point_in_polygon/random_num_$(NUM_POINTS)__bbox_800.00x600.00__radius_250.00__polygon.npy \
-		dist/mask_matplotlib.npy
-	python3 benchmarks/benchmark_point_in_polygon.py cubao \
-		dist/point_in_polygon/random_num_$(NUM_POINTS)__bbox_800.00x600.00__radius_250.00__points.npy \
-		dist/point_in_polygon/random_num_$(NUM_POINTS)__bbox_800.00x600.00__radius_250.00__polygon.npy \
-		dist/mask_cubao.npy
-.PHONY: benchmark_point_in_polygon
-
-SYNC_OUTPUT_DIR ?= headers/include/cubao
-sync_headers:
-	cp src/densify_polyline.hpp $(SYNC_OUTPUT_DIR)
-	cp src/fast_crossing.hpp $(SYNC_OUTPUT_DIR)
-	cp src/flatbush.h $(SYNC_OUTPUT_DIR)
-	cp src/kd_quiver.hpp $(SYNC_OUTPUT_DIR)
-	cp src/nanoflann_kdtree.hpp $(SYNC_OUTPUT_DIR)
-	cp src/polyline_in_polygon.hpp $(SYNC_OUTPUT_DIR)
-	cp src/pybind11_fast_crossing.hpp $(SYNC_OUTPUT_DIR)
-	cp src/pybind11_flatbush.hpp $(SYNC_OUTPUT_DIR)
-	cp src/pybind11_nanoflann_kdtree.hpp $(SYNC_OUTPUT_DIR)
-	cp src/pybind11_quiver.hpp $(SYNC_OUTPUT_DIR)
-	cp src/quiver.hpp $(SYNC_OUTPUT_DIR)
+	tar -cvz --exclude .git -f ../$(PROJECT_NAME).tar.gz .
+	ls -alh ../$(PROJECT_NAME).tar.gz
 
 # https://stackoverflow.com/a/25817631
 echo-%  : ; @echo -n $($*)

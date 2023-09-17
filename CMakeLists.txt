@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.4...3.18)
-project(fast_crossing)
+project(cubao_tippecanoe)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -20,14 +20,11 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
 
-include_directories(${PROJECT_SOURCE_DIR}/headers/include
-                    ${PROJECT_SOURCE_DIR}/headers/include/cubao)
-
 set(CMAKE_CXX_STANDARD 17)
 set(PYBIND11_CPP_STANDARD -std=c++17)
 
 add_subdirectory(pybind11)
-pybind11_add_module(_pybind11_fast_crossing src/main.cpp)
+pybind11_add_module(_pybind11_tippecanoe pybind11.cpp)
 
-target_compile_definitions(_pybind11_fast_crossing
-                           PRIVATE VERSION_INFO=${FAST_CROSSING_VERSION_INFO})
+target_compile_definitions(_pybind11_tippecanoe
+                           PRIVATE VERSION_INFO=${TIPPECANOE_VERSION_INFO})

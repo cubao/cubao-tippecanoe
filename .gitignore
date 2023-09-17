@@ -51,3 +51,5 @@ tests/**/*.geobuf
 # Nodejs
 node_modules
 build
+dist
+*.egg-info

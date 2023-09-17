@@ -1208,7 +1208,7 @@ void usage(char **argv) {
 	exit(EXIT_ARGS);
 }
 
-int main(int argc, char **argv) {
+int tile_join_main(int argc, char **argv) {
 	char *out_mbtiles = NULL;
 	char *out_dir = NULL;
 	sqlite3 *outdb = NULL;

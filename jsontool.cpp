@@ -407,7 +407,7 @@ void process(FILE *fp, const char *fname) {
 	json_end(jp);
 }
 
-int main(int argc, char **argv) {
+int jsontool_main(int argc, char **argv) {
 	const char *csv = NULL;
 
 	struct option long_options[] = {

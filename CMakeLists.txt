@@ -35,20 +35,14 @@ set(WITH_GZFILEOP ON)
 set(WITH_GTEST OFF)
 add_subdirectory(zlib-ng)
 
-set(MAIN_SRCS #
-    decode.cpp #
-    enumerate.cpp # 
-    jsontool.cpp # 
-    main.cpp # 
-    overzoom.cpp #
-    tile-join.cpp)
-
 file(GLOB HEADERS *.hpp *.h jsonpull/*.h)
 set(SOURCES
     clip.cpp
     compression.cpp
     csv.cpp
+    decode.cpp
     dirtiles.cpp
+    enumerate.cpp
     evaluator.cpp
     flatgeobuf.cpp
     geobuf.cpp
@@ -58,9 +52,12 @@ set(SOURCES
     geometry.cpp
     json_logger.cpp
     jsonpull/jsonpull.c
+    jsontool.cpp
+    main.cpp
     mbtiles.cpp
     memfile.cpp
     mvt.cpp
+    overzoom.cpp
     plugin.cpp
     pmtiles_file.cpp
     pool.cpp
@@ -69,12 +66,11 @@ set(SOURCES
     serial.cpp
     sqlite3.c
     text.cpp
+    tile-join.cpp
     tile.cpp
     unit.cpp
     visvalingam.cpp
     write_json.cpp)
-# file(GLOB SOURCES *.cpp *.c jsonpull/*.c) list(REMOVE_ITEM SOURCES
-# ${MAIN_SRCS})
 
 add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} zlib m dl pthread)
@@ -83,21 +79,10 @@ install(
   LIBRARY DESTINATION lib
   ARCHIVE DESTINATION lib)
 
-foreach(src ${MAIN_SRCS})
-  string(REGEX REPLACE "(^.*/|.cpp$)" "" exe ${src})
-  if(${src} STREQUAL "main.cpp")
-    set(exe tippecanoe_exe)
-    add_executable(${exe} ${src})
-    set_target_properties(${exe} PROPERTIES OUTPUT_NAME tippecanoe)
-  else()
-    add_executable(${exe} ${src})
-  endif()
-  target_link_libraries(${exe} ${PROJECT_NAME})
-  install(TARGETS ${exe} RUNTIME DESTINATION python/${PYBIND11_PROJECT_NAME})
-endforeach(src)
-
 add_subdirectory(pybind11)
 pybind11_add_module(_pybind11_tippecanoe pybind11.cpp)
 
 target_compile_definitions(_pybind11_tippecanoe
                            PRIVATE VERSION_INFO=${TIPPECANOE_VERSION_INFO})
+target_link_libraries(_pybind11_tippecanoe PRIVATE ${PROJECT_NAME})
+

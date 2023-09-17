@@ -53,7 +53,7 @@ void usage(char **argv) {
 	exit(EXIT_ARGS);
 }
 
-int main(int argc, char **argv) {
+int enumerate_main(int argc, char **argv) {
 	extern int optind;
 	// extern char *optarg;
 	int i;

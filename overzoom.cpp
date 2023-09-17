@@ -21,7 +21,7 @@ void usage(char **argv) {
 	exit(EXIT_FAILURE);
 }
 
-int main(int argc, char **argv) {
+int overzoom_main(int argc, char **argv) {
 	int i;
 	const char *outfile = NULL;
 

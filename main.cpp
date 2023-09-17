@@ -66,6 +66,9 @@
 #include "errors.hpp"
 #include "read_json.hpp"
 
+extern int optind;
+extern char *optarg;
+
 static int low_detail = 12;
 static int full_detail = -1;
 static int min_detail = 7;
@@ -2824,8 +2827,6 @@ int main(int argc, char **argv) {
 	av = argv;
 	init_cpus();
 
-	extern int optind;
-	extern char *optarg;
 	int i;
 
 	char *name = NULL;

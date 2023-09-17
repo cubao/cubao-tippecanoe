@@ -47,8 +47,8 @@ int __run_cmd(const std::string &cmd, std::vector<std::string> args) {
     char **argv = &argv_[0];
     if (cmd == "tippecanoe") {
         return cmd_tippecanoe::main(argc, argv);
-    } else if (cmd == "decode") {
-        return cmd_decode::main(argc, argv);
+    // } else if (cmd == "decode") {
+    //     return cmd_decode::main(argc, argv);
     } else if (cmd == "enumerate") {
         return cmd_enumerate::main(argc, argv);
     } else if (cmd == "jsontool") {

@@ -125,7 +125,7 @@ setup(
     version="0.0.1",
     author="tzx",
     author_email="dvorak4tzx@gmail.com",
-    url="https://tippecanoe.readthedocs.io",
+    url="https://cubao-tippecanoe.readthedocs.io",
     description="standalone tippecanoe",
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",

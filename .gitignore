@@ -50,3 +50,4 @@ tests/**/*.geobuf
 
 # Nodejs
 node_modules
+build

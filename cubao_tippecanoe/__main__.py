@@ -1,11 +1,14 @@
 import sys
 import os
-from cubao_tippecanoe import run_cmd
+import cubao_tippecanoe
+import glob
+
+__PWD = os.path.abspath(os.path.dirname(__file__))
+
 
 if __name__ == '__main__':
+    print(cubao_tippecanoe.__path__, 'die')
     print(sys.argv)
-    run_cmd(sys.argv[1], sys.argv[2:])
-
     # - tippecanoe
     # - decode
     # - enumerate

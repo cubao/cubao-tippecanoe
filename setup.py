@@ -2,6 +2,8 @@ import os
 import re
 import subprocess
 import sys
+import shutil
+import glob
 
 from setuptools import Extension, find_packages, setup
 from setuptools.command.build_ext import build_ext
@@ -116,6 +118,18 @@ class CMakeBuild(build_ext):
 
         subprocess.check_call(["cmake", ext.sourcedir] + cmake_args, cwd=build_temp)
         subprocess.check_call(["cmake", "--build", "."] + build_args, cwd=build_temp)
+        executables = [
+            'decode',
+            'enumerate',
+            'jsontool',
+            'overzoom',
+            'tile-join',
+            'tippecanoe',
+        ]
+        for exe in executables:
+            src = next(iter(glob.glob(f'{build_temp}/{exe}*')))
+            dst = f'{ext.sourcedir}/bin/{exe}.exe'
+            shutil.copy(src, dst)
 
 
 # The information here can also be placed in setup.cfg - better separation of
@@ -130,7 +144,19 @@ setup(
     long_description=open("README.md", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     packages=find_packages(),
-    ext_modules=[CMakeExtension("tippecanoe")],
+    ext_modules=[CMakeExtension("cubao_tippecanoe")],
+    include_package_data=True,
+    package_data={
+        'cubao_tippecanoe': [
+            'bin/README',
+            'bin/decode.exe',
+            'bin/enumerate.exe',
+            'bin/jsontool.exe',
+            'bin/overzoom.exe',
+            'bin/tile-join.exe',
+            'bin/tippecanoe.exe',
+        ],
+    },
     cmdclass={"build_ext": CMakeBuild},
     zip_safe=False,
 )

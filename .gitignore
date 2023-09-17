@@ -53,3 +53,4 @@ node_modules
 build
 dist
 *.egg-info
+bin/*.exe

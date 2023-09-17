@@ -91,7 +91,7 @@ foreach(src ${SRCS})
     add_executable(${exe} ${src})
   endif()
   target_link_libraries(${exe} ${PROJECT_NAME})
-  set_target_properties(${exe} PROPERTIES PREFIX "__cubao_bin_")
+  set_target_properties(${exe} PROPERTIES PREFIX "__cubao_tippecanoe_")
   set_target_properties(${exe} PROPERTIES SUFFIX ".exe")
 endforeach(src)
 

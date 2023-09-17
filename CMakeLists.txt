@@ -19,14 +19,20 @@ elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
   set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O3")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 endif()
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
 set(CMAKE_CXX_STANDARD 17)
 set(PYBIND11_CPP_STANDARD -std=c++17)
 include_directories(BEFORE ${PROJECT_BINARY_DIR} ${PROJECT_SOURCE_DIR})
 include_directories(${PYBIND11_INCLUDE_DIR})
 
-set(MAIN_SRCS decode.cpp enumerate.cpp jsontool.cpp main.cpp overzoom.cpp
-              tile-join.cpp)
+set(MAIN_SRCS #
+    decode.cpp #
+    enumerate.cpp # 
+    jsontool.cpp # 
+    main.cpp # 
+    overzoom.cpp #
+    tile-join.cpp)
 
 file(GLOB HEADERS *.hpp *.h jsonpull/*.h)
 set(SOURCES
@@ -50,9 +56,9 @@ set(SOURCES
     pmtiles_file.cpp
     pool.cpp
     projection.cpp
-    pybind11.cpp
     read_json.cpp
     serial.cpp
+    sqlite3.c
     text.cpp
     tile.cpp
     unit.cpp

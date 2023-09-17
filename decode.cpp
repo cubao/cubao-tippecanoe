@@ -25,6 +25,8 @@
 #include "pmtiles_file.hpp"
 #include "errors.hpp"
 
+namespace cmd_decode {
+
 int minzoom = 0;
 int maxzoom = 32;
 bool force = false;
@@ -644,4 +646,6 @@ int decode_main(int argc, char **argv) {
 	}
 
 	return 0;
+}
+
 }

@@ -2814,6 +2814,8 @@ void parse_json_source(const char *arg, struct source &src) {
 	json_end(jp);
 }
 
+
+namespace cmd_tippecanoe {
 int tippecanoe_main(int argc, char **argv) {
 #ifdef MTRACE
 	mtrace();
@@ -3692,6 +3694,7 @@ int tippecanoe_main(int argc, char **argv) {
 	}
 
 	return ret;
+}
 }
 
 int mkstemp_cloexec(char *name) {

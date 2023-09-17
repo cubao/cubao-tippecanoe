@@ -4,6 +4,9 @@
 #include <sqlite3.h>
 #include "errors.hpp"
 
+
+namespace cmd_enumerate {
+
 void enumerate(char *fname) {
 	sqlite3 *db;
 
@@ -71,4 +74,6 @@ int enumerate_main(int argc, char **argv) {
 	}
 
 	return 0;
+}
+
 }

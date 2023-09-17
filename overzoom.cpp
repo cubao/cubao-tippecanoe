@@ -10,6 +10,8 @@
 extern char *optarg;
 extern int optind;
 
+namespace cmd_overzoom {
+
 int detail = 12;  // tippecanoe-style: mvt extent == 1 << detail
 int buffer = 5;	  // tippecanoe-style: mvt buffer == extent * buffer / 256;
 
@@ -96,4 +98,6 @@ int overzoom_main(int argc, char **argv) {
 	fclose(f);
 
 	return 0;
+}
+
 }

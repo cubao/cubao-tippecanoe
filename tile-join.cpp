@@ -42,6 +42,8 @@
 #include "errors.hpp"
 #include "geometry.hpp"
 
+namespace cmd_tile_join {
+
 int pk = false;
 int pC = false;
 int pg = false;
@@ -1580,4 +1582,6 @@ int tile_join_main(int argc, char **argv) {
 	}
 
 	return 0;
+}
+
 }

@@ -14,6 +14,8 @@
 #include "milo/dtoa_milo.h"
 #include "errors.hpp"
 
+namespace jsontool {
+
 int fail = EXIT_SUCCESS;
 bool wrap = false;
 const char *extract = NULL;
@@ -508,4 +510,5 @@ int jsontool_main(int argc, char **argv) {
 	}
 
 	return fail;
+}
 }

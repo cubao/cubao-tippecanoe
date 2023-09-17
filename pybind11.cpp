@@ -26,7 +26,6 @@ int overzoom_main(int argc, char **argv);
 int tile_join_main(int argc, char **argv);
 
 int __run_cmd(const std::string &cmd, std::vector<std::string> args) {
-    using namespace run_cmd;
     int argc = args.size() + 1;
     std::vector<char*> argv_;
     for (const auto& arg : args) {

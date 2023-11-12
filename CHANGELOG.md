@@ -1,3 +1,37 @@
+# 2.37.0
+
+* Speed up tile-join overzooming and make it use less memory, by not including empty child tiles in the enumeration
+
+# 2.36.0
+
+* Make tile-join distrust the source tilesets' metadata maxzoom and minzoom
+* Add a special case in --detect-longitude-wraparound not to wrap around jumps of exactly 360°
+
+# 2.35.0
+
+* Fix a bug in --detect-longitude-wraparound when there are multiple rings
+
+# 2.34.1
+
+* Further improvements to tile-join speed
+
+# 2.34.0
+
+* Improve speed of overzooming in tile-join
+
+# 2.33.0
+
+* Further reduce memory usage of --no-simplification-of-shared-nodes by calculating the list of shared nodes globally using temporary files rather than in memory for each individual tile
+* Make --no-simplification-of-shared-nodes behave for LineStrings as it does for Polygons, preventing simplification only at crossings, convergences, and divergences, not at every point along collinear segments
+
+# 2.32.1
+
+* Reduce memory usage of --no-simplification-of-shared-nodes for polygons
+
+# 2.32.0
+
+* Extend --no-simplification-of-shared-nodes to also simplify shared polygon borders consistently
+
 # 2.31.0
 
 * Fix tile-join crash when trying to join empty tilesets

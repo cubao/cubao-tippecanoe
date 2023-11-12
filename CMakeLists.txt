@@ -63,6 +63,7 @@ set(SOURCES
     projection.cpp
     read_json.cpp
     serial.cpp
+    sort.cpp
     sqlite3.c
     text.cpp
     tile.cpp

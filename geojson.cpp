@@ -6,13 +6,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include "platform.hpp"
+#include <unistd.h>
 #include <sys/stat.h>
 #include <sys/types.h>
-#ifndef _WIN32
 #include <sys/mman.h>
-#include <sys/resource.h>
-#endif
 #include <string.h>
 #include <fcntl.h>
 #include <ctype.h>
@@ -20,6 +17,7 @@
 #include <limits.h>
 #include <sqlite3.h>
 #include <stdarg.h>
+#include <sys/resource.h>
 #include <pthread.h>
 #include <vector>
 #include <algorithm>

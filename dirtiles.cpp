@@ -5,10 +5,8 @@
 #include <algorithm>
 #include <stdio.h>
 #include <string.h>
-#include "platform.hpp"
-#ifndef _WIN32
+#include <unistd.h>
 #include <dirent.h>
-#endif
 #include <limits.h>
 #include <sys/stat.h>
 #include <sqlite3.h>
@@ -28,10 +26,6 @@ std::string dir_read_tile(std::string base, struct zxy tile) {
 }
 
 void dir_write_tile(const char *outdir, int z, int tx, int ty, std::string const &pbf) {
-#ifdef _WIN32
-	fprintf(stderr, "Directory tiles are not supported on Windows\n");
-	exit(EXIT_FAILURE);
-#else
 	// Don't check mkdir error returns, since most of these calls to
 	// mkdir will be creating directories that already exist.
 	mkdir(outdir, S_IRWXU | S_IRWXG | S_IRWXO);
@@ -68,7 +62,6 @@ void dir_write_tile(const char *outdir, int z, int tx, int ty, std::string const
 		fprintf(stderr, "%s: %s\n", newdir.c_str(), strerror(errno));
 		exit(EXIT_CLOSE);
 	}
-#endif
 }
 
 static bool numeric(const char *s) {
@@ -92,10 +85,6 @@ static bool pbfname(const char *s) {
 }
 
 void check_dir(const char *dir, char **argv, bool force, bool forcetable) {
-#ifdef _WIN32
-	fprintf(stderr, "Directory tiles are not supported on Windows\n");
-	exit(EXIT_FAILURE);
-#else
 	struct stat st;
 
 	mkdir(dir, S_IRWXU | S_IRWXG | S_IRWXO);
@@ -132,15 +121,11 @@ void check_dir(const char *dir, char **argv, bool force, bool forcetable) {
 			exit(EXIT_EXISTS);
 		}
 	}
-#endif
 }
 
 std::vector<zxy> enumerate_dirtiles(const char *fname, int minzoom, int maxzoom) {
 	std::vector<zxy> tiles;
-#ifdef _WIN32
-	fprintf(stderr, "Directory tiles are not supported on Windows\n");
-	exit(EXIT_FAILURE);
-#else
+
 	DIR *d1 = opendir(fname);
 	if (d1 != NULL) {
 		struct dirent *dp;
@@ -190,17 +175,12 @@ std::vector<zxy> enumerate_dirtiles(const char *fname, int minzoom, int maxzoom)
 
 		closedir(d1);
 	}
-#endif
 
 	std::sort(tiles.begin(), tiles.end());
 	return tiles;
 }
 
 void dir_erase_zoom(const char *fname, int zoom) {
-#ifdef _WIN32
-	fprintf(stderr, "Directory tiles are not supported on Windows\n");
-	exit(EXIT_FAILURE);
-#else
 	DIR *d1 = opendir(fname);
 	if (d1 != NULL) {
 		struct dirent *dp;
@@ -246,7 +226,6 @@ void dir_erase_zoom(const char *fname, int zoom) {
 
 		closedir(d1);
 	}
-#endif
 }
 
 sqlite3 *dirmeta2tmp(const char *fname) {

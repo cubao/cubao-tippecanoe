@@ -635,16 +635,16 @@ static bool inside(std::pair<double, double> d, int edge, long long minx, long l
 static std::pair<double, double> intersect(std::pair<double, double> a, std::pair<double, double> b, int edge, long long minx, long long miny, long long maxx, long long maxy) {
 	switch (edge) {
 	case 0:	 // top
-		return std::pair<double, double>((a.first + (double) (b.first - a.first) * (miny - a.second) / (b.second - a.second)), (double) miny);
+		return std::pair<double, double>((a.first + (double) (b.first - a.first) * (miny - a.second) / (b.second - a.second)), miny);
 
 	case 1:	 // right
-		return std::pair<double, double>((double) maxx, (a.second + (double) (b.second - a.second) * (maxx - a.first) / (b.first - a.first)));
+		return std::pair<double, double>(maxx, (a.second + (double) (b.second - a.second) * (maxx - a.first) / (b.first - a.first)));
 
 	case 2:	 // bottom
-		return std::pair<double, double>((a.first + (double) (b.first - a.first) * (maxy - a.second) / (b.second - a.second)), (double) maxy);
+		return std::pair<double, double>((a.first + (double) (b.first - a.first) * (maxy - a.second) / (b.second - a.second)), maxy);
 
 	case 3:	 // left
-		return std::pair<double, double>((double) minx, (a.second + (double) (b.second - a.second) * (minx - a.first) / (b.first - a.first)));
+		return std::pair<double, double>(minx, (a.second + (double) (b.second - a.second) * (minx - a.first) / (b.first - a.first)));
 	}
 
 	fprintf(stderr, "internal error intersecting\n");

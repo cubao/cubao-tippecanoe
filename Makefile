@@ -16,11 +16,6 @@ lint:
 lint_install:
 	pre-commit install
 
-build:
-	mkdir -p build && cd build && \
-	cmake .. && make -j $(NUM_JOB)
-.PHONY: build
-
 docs_build:
 	mkdocs build
 docs_serve:
@@ -47,16 +42,20 @@ test_in_dev_container:
 			-v `pwd`:`pwd` -w `pwd` -it $(DEV_CONTAINER_IMAG) bash
 
 PYTHON ?= python3
+build:
+	$(PYTHON) -m pip install scikit_build_core pyproject_metadata pathspec pybind11
+	CMAKE_BUILD_PARALLEL_LEVEL=$(NUM_JOB) $(PYTHON) -m pip install --no-build-isolation -Ceditable.rebuild=true -Cbuild-dir=build -ve.
+.PHONY: build
 python_install:
-	$(PYTHON) setup.py install
-python_build:
-	$(PYTHON) setup.py bdist_wheel
+	$(PYTHON) -m pip install . --verbose
+python_wheel:
+	$(PYTHON) -m pip wheel . -w build --verbose
 python_sdist:
-	$(PYTHON) setup.py sdist
+	$(PYTHON) -m pip sdist . --verbose
 python_test: pytest
 pytest:
 	pytest tests --capture=tee-sys
-.PHONY: python_install python_build python_sdist python_test pytest
+.PHONY: python_install python_wheel python_sdist python_test pytest
 
 # conda create -y -n py36 python=3.6
 # conda create -y -n py37 python=3.7

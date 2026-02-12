@@ -1,5 +1,8 @@
-cmake_minimum_required(VERSION 3.4...3.18)
-project(cubao_tippecanoe)
+cmake_minimum_required(VERSION 3.15...3.27)
+project(
+  ${SKBUILD_PROJECT_NAME}
+  VERSION ${SKBUILD_PROJECT_VERSION}
+  LANGUAGES C CXX)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
@@ -93,11 +96,13 @@ foreach(src ${SRCS})
   target_link_libraries(${exe} ${PROJECT_NAME})
   set_target_properties(${exe} PROPERTIES PREFIX "__cubao_tippecanoe_")
   set_target_properties(${exe} PROPERTIES SUFFIX ".exe")
+  install(TARGETS ${exe} RUNTIME DESTINATION ${SKBUILD_PROJECT_NAME})
 endforeach(src)
 
-add_subdirectory(pybind11)
-pybind11_add_module(_pybind11_tippecanoe pybind11.cpp)
+find_package(Python REQUIRED COMPONENTS Interpreter Development.Module)
+find_package(pybind11 CONFIG REQUIRED)
 
-target_compile_definitions(_pybind11_tippecanoe
-                           PRIVATE VERSION_INFO=${TIPPECANOE_VERSION_INFO})
-target_link_libraries(_pybind11_tippecanoe PRIVATE ${PROJECT_NAME})
+python_add_library(_core MODULE pybind11.cpp WITH_SOABI)
+target_link_libraries(_core PRIVATE pybind11::headers ${PROJECT_NAME})
+target_compile_definitions(_core PRIVATE VERSION_INFO=${PROJECT_VERSION})
+install(TARGETS _core DESTINATION ${SKBUILD_PROJECT_NAME})

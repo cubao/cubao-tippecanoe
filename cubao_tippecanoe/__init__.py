@@ -1,2 +1,2 @@
-from _pybind11_tippecanoe import *  # noqa
-from _pybind11_tippecanoe import __version__  # noqa
+from ._core import *  # noqa
+from ._core import __version__  # noqa

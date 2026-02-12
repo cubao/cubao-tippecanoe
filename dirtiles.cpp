@@ -22,7 +22,13 @@ std::string dir_read_tile(std::string base, struct zxy tile) {
 	std::ifstream pbfFile(base + "/" + tile.path(), std::ios::in | std::ios::binary);
 	std::ostringstream contents;
 	contents << pbfFile.rdbuf();
+#ifdef _WIN32
+#undef close  // Temporarily undefine the macro to avoid conflict with ifstream.close()
+#endif
 	pbfFile.close();
+#ifdef _WIN32
+#define close _close  // Restore the macro
+#endif
 
 	return (contents.str());
 }

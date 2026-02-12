@@ -249,7 +249,13 @@ void mbtiles_map_image_to_pmtiles(char *fname, metadata m, bool tile_compression
 			sqlite3_reset(map_stmt);
 			sqlite3_clear_bindings(map_stmt);
 		}
+#ifdef _WIN32
+#undef close  // Temporarily undefine the macro to avoid conflict with ostream.close()
+#endif
 		tmp_ostream.close();
+#ifdef _WIN32
+#define close _close  // Restore the macro
+#endif
 		sqlite3_finalize(map_stmt);
 		sqlite3_finalize(image_stmt);
 	}
@@ -322,9 +328,15 @@ void mbtiles_map_image_to_pmtiles(char *fname, metadata m, bool tile_compression
 		ostream.write(leaves_bytes.data(), leaves_bytes.length());
 		ostream << tmp_istream.rdbuf();
 
+#ifdef _WIN32
+#undef close  // Temporarily undefine the macro to avoid conflict with stream.close()
+#endif
 		tmp_istream.close();
 		unlink(tmpname.c_str());
 		ostream.close();
+#ifdef _WIN32
+#define close _close  // Restore the macro
+#endif
 	}
 }
 

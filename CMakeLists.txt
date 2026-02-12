@@ -37,7 +37,13 @@ set(ZLIBNG_ENABLE_TESTS OFF)
 set(WITH_GZFILEOP ON)
 # set(WITH_NEW_STRATEGIES OFF)
 set(WITH_GTEST OFF)
+# Don't install zlib static library - delocate-wheel will fail trying to parse
+# .a files as Mach-O binaries on macOS
+set(SKIP_INSTALL_LIBRARIES ON)
+set(SKIP_INSTALL_ALL ON)
 add_subdirectory(zlib-ng SYSTEM)
+set(SKIP_INSTALL_LIBRARIES OFF)
+set(SKIP_INSTALL_ALL OFF)
 
 set(MAIN_SRCS decode.cpp enumerate.cpp jsontool.cpp main.cpp overzoom.cpp
               tile-join.cpp)

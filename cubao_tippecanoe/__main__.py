@@ -6,8 +6,8 @@ import subprocess
 
 
 if __name__ == '__main__':
-    import _pybind11_tippecanoe
-    libdir = os.path.dirname(_pybind11_tippecanoe.__file__)
+    from . import _core
+    libdir = os.path.dirname(_core.__file__)
     prefix = '__cubao_tippecanoe_'
     exes = sorted(glob.glob(f'{libdir}/{prefix}*.exe'))
     exes = {e.rsplit('/', 1)[-1][len(prefix):].split('.')[0]: e for e in exes}

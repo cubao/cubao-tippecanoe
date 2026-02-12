@@ -31,7 +31,7 @@ int __run_cmd(const std::string &cmd, std::vector<std::string> args) {
 }
 
 
-PYBIND11_MODULE(_pybind11_tippecanoe, m)
+PYBIND11_MODULE(_core, m)
 {
      m.def("run_cmd", &__run_cmd, "cmd"_a, "args"_a)
      //

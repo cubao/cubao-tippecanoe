@@ -37,7 +37,7 @@ set(ZLIBNG_ENABLE_TESTS OFF)
 set(WITH_GZFILEOP ON)
 # set(WITH_NEW_STRATEGIES OFF)
 set(WITH_GTEST OFF)
-add_subdirectory(zlib-ng)
+add_subdirectory(zlib-ng SYSTEM)
 
 set(MAIN_SRCS decode.cpp enumerate.cpp jsontool.cpp main.cpp overzoom.cpp
               tile-join.cpp)

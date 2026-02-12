@@ -51,7 +51,7 @@ python_install:
 python_wheel:
 	$(PYTHON) -m pip wheel . -w build --verbose
 python_sdist:
-	$(PYTHON) -m pip sdist . --verbose
+	$(PYTHON) -m build --sdist
 python_test: pytest
 pytest:
 	pytest tests --capture=tee-sys

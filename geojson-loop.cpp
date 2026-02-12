@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-#include <unistd.h>
+#include "platform.hpp"
 #include <fcntl.h>
 #include <ctype.h>
 #include <errno.h>

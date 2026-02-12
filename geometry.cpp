@@ -6,7 +6,7 @@
 #include <map>
 #include <algorithm>
 #include <cstdio>
-#include <unistd.h>
+#include "platform.hpp"
 #include <cmath>
 #include <limits.h>
 #include <sqlite3.h>

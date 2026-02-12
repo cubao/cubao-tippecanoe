@@ -1,7 +1,9 @@
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include "platform.hpp"
+#ifndef _WIN32
 #include <sys/mman.h>
+#endif
 #include <errno.h>
 #include "memfile.hpp"
 

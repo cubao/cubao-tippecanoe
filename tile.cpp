@@ -13,12 +13,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
+#include "platform.hpp"
 #include <limits.h>
 #include <zlib.h>
 #include <sys/stat.h>
 #include <sys/types.h>
+#ifndef _WIN32
 #include <sys/mman.h>
+#include <sys/wait.h>
+#endif
 #include <cmath>
 #include <sqlite3.h>
 #include <pthread.h>
@@ -26,7 +29,6 @@
 #include <time.h>
 #include <fcntl.h>
 #include <zlib.h>
-#include <sys/wait.h>
 #include "mvt.hpp"
 #include "mbtiles.hpp"
 #include "dirtiles.hpp"
@@ -2018,7 +2020,9 @@ long long write_tile(decompressor *geoms, std::atomic<long long> *geompos_in, ch
 		}
 
 		int prefilter_write = -1, prefilter_read = -1;
+#ifndef _WIN32
 		pid_t prefilter_pid = 0;
+#endif
 		FILE *prefilter_fp = NULL;
 		pthread_t prefilter_writer;
 		run_prefilter_args rpa;	 // here so it stays in scope until joined
@@ -2032,6 +2036,7 @@ long long write_tile(decompressor *geoms, std::atomic<long long> *geompos_in, ch
 			postfilter = NULL;
 		}
 
+#ifndef _WIN32
 		if (prefilter != NULL) {
 			setup_filter(prefilter, &prefilter_write, &prefilter_read, &prefilter_pid, z, tx, ty);
 			prefilter_fp = fdopen(prefilter_write, "w");
@@ -2084,6 +2089,7 @@ long long write_tile(decompressor *geoms, std::atomic<long long> *geompos_in, ch
 			}
 			prefilter_jp = json_begin_file(prefilter_read_fp);
 		}
+#endif
 
 		for (size_t seq = 0;; seq++) {
 			serial_feature sf;
@@ -2507,6 +2513,7 @@ long long write_tile(decompressor *geoms, std::atomic<long long> *geompos_in, ch
 				perror("close output from prefilter");
 				exit(EXIT_CLOSE);
 			}
+#ifndef _WIN32
 			while (1) {
 				int stat_loc;
 				if (waitpid(prefilter_pid, &stat_loc, 0) < 0) {
@@ -2517,6 +2524,7 @@ long long write_tile(decompressor *geoms, std::atomic<long long> *geompos_in, ch
 					break;
 				}
 			}
+#endif
 			void *ret;
 			if (pthread_join(prefilter_writer, &ret) != 0) {
 				perror("pthread_join prefilter writer");

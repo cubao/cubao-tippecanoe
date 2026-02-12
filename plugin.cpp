@@ -10,12 +10,14 @@
 #include <map>
 #include <set>
 #include <pthread.h>
-#include <unistd.h>
+#include "platform.hpp"
 #include <fcntl.h>
 #include <errno.h>
 #include <cmath>
 #include <sys/types.h>
+#ifndef _WIN32
 #include <sys/wait.h>
+#endif
 #include <sqlite3.h>
 #include <limits.h>
 #include "main.hpp"
@@ -535,6 +537,7 @@ serial_feature parse_feature(json_pull *jp, int z, unsigned x, unsigned y, std::
 
 static pthread_mutex_t pipe_lock = PTHREAD_MUTEX_INITIALIZER;
 
+#ifndef _WIN32
 void setup_filter(const char *filter, int *write_to, int *read_from, pid_t *pid, unsigned z, unsigned x, unsigned y) {
 	// This will create two pipes, a new thread, and a new process.
 	//
@@ -628,8 +631,10 @@ void setup_filter(const char *filter, int *write_to, int *read_from, pid_t *pid,
 		*read_from = pipe_filtered[0];
 	}
 }
+#endif
 
 std::vector<mvt_layer> filter_layers(const char *filter, std::vector<mvt_layer> &layers, unsigned z, unsigned x, unsigned y, std::vector<std::map<std::string, layermap_entry>> *layermaps, size_t tiling_seg, std::vector<std::vector<std::string>> *layer_unmaps, int extent) {
+#ifndef _WIN32
 	int write_to, read_from;
 	pid_t pid;
 	setup_filter(filter, &write_to, &read_from, &pid, z, x, y);
@@ -668,4 +673,8 @@ std::vector<mvt_layer> filter_layers(const char *filter, std::vector<mvt_layer> 
 	}
 
 	return nlayers;
+#else
+	fprintf(stderr, "Filters are not supported on Windows\n");
+	exit(EXIT_FAILURE);
+#endif
 }

@@ -24,9 +24,7 @@
 #endif
 #include <cmath>
 #include <sqlite3.h>
-#ifndef _WIN32
 #include <pthread.h>
-#endif
 #include <errno.h>
 #include <time.h>
 #include <fcntl.h>

@@ -27,11 +27,6 @@ typedef SSIZE_T ssize_t;
 // mkdir on Windows takes only one argument
 #define mkdir(path, mode) _mkdir(path)
 
-// M_PI is not defined in MSVC by default
-#ifndef M_PI
-#define M_PI 3.14159265358979323846
-#endif
-
 #else
 
 #include <unistd.h>

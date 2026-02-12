@@ -6476,7 +6476,7 @@ namespace Catch {
 #ifdef CATCH_CPP14_OR_GREATER
             std::shuffle( vector.begin(), vector.end(), rng );
 #else
-            std::shuffle( vector.begin(), vector.end(), rng );
+            std::random_shuffle( vector.begin(), vector.end(), rng );
 #endif
         }
     };

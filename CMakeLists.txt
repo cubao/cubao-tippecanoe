@@ -75,10 +75,10 @@ set(SOURCES
 
 add_library(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 target_link_libraries(${PROJECT_NAME} zlib m dl pthread)
-install(
-  TARGETS ${PROJECT_NAME}
-  LIBRARY DESTINATION lib
-  ARCHIVE DESTINATION lib)
+# Note: We intentionally don't install the static library into the wheel. It's
+# only needed at build time (linked into executables and the Python extension).
+# Installing it causes delocate-wheel to fail on macOS because it tries to parse
+# .a files as Mach-O binaries.
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_LIBRARY_OUTPUT_DIRECTORY})
 

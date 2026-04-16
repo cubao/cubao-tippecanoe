@@ -4,7 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "cubao_tippecanoe"
-version = "0.0.3"
+version = "0.0.4"
 description = "standalone tippecanoe"
 readme = "README.md"
 authors = [
